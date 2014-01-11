@@ -7,5 +7,4 @@
 
 (deftest print-board-test
   (testing "prints an empty tic-tac-toe board"
-    (print (print-board))
     (is (= "\n_ _ _ \n_ _ _ \n_ _ _ \n" (print-board)))))
