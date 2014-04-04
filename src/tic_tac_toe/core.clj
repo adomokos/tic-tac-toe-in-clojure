@@ -21,4 +21,4 @@
   [& args]
   ;; work around dangerous default behaviour in Clojure
   (alter-var-root #'*read-eval* (constantly false))
-  (println (print-board)))
+  (println (print-board board)))
