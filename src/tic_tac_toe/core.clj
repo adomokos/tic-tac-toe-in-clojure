@@ -4,6 +4,11 @@
 (def board
   [[:_ :_ :_][:_ :_ :_][:_ :_ :_]])
 
+(defn record-move [board where player]
+  (if (= where "B2")
+    (assoc-in board [1 1] player)
+    (assoc-in board [0 0] player)))
+
 (defn print-board [board]
   (let [print-board-line
     (fn [line]
@@ -27,6 +32,7 @@
   (while (= @state :running)
     (let [move (read-line)]
       (if (pos? (count move))
-        (println (print-board board))
+        (do
+          (println (print-board board))
+          (println (str "You moved to: " move)))
         (reset! state :stop)))))
-
