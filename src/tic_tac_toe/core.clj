@@ -36,10 +36,14 @@
   ;; work around dangerous default behaviour in Clojure
   (alter-var-root #'*read-eval* (constantly false))
   (println "You are with X. Where do you want to move?")
-  (while (= @state :running)
-    (let [move (read-line)]
-      (if (pos? (count move))
-        (do
-          (println (print-board board))
-          (println (str "You moved to: " move)))
-        (reset! state :stop)))))
+
+  (let [game-board (atom board)]
+    (while (= @state :running)
+      (let [move (read-line)
+            ]
+        (if (pos? (count move))
+          (do
+            (swap! game-board record-move move :X)
+            (println (print-board @game-board))
+            (println (str "You moved to: " move)))
+          (reset! state :stop))))))
