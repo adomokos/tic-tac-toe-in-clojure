@@ -10,7 +10,7 @@
   (str "\n"
     (apply str (map #(str (print-board-line %) "\n") board)))))
 
-(defn parse-step [step]
+(defn converts-step-into-coordinates [step]
   (let [parsed-string (seq step)
         row (first parsed-string)
         col (last parsed-string)
@@ -22,7 +22,7 @@
     [(converted-row) (-> col str Integer/parseInt dec)]))
 
 (defn record-move [board step mark]
-  (let [parsed-step (parse-step step)
-        x (first parsed-step)
-        y (last parsed-step)]
+  (let [coordinates (converts-step-into-coordinates step) ; converts "A1" into [0 0]
+        x (first coordinates)
+        y (last coordinates)]
     (-> board (assoc-in [x y] mark))))
