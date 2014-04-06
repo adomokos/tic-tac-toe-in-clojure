@@ -1,6 +1,6 @@
-(ns tic-tac-toe.core-test
+(ns tic-tac-toe.game-test
   (:require [clojure.test :refer :all]
-            [tic-tac-toe.core :refer :all]))
+            [tic-tac-toe.game :refer :all]))
 
 (deftest board-test
   (is (= [[:_ :_ :_][:_ :_ :_][:_ :_ :_]] board)))
