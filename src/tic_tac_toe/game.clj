@@ -22,7 +22,7 @@
     [(converted-row) (-> col str Integer/parseInt dec)]))
 
 (defn record-move [board step mark]
-  (let [coordinates (converts-step-into-coordinates step) ; converts "A1" into [0 0]
+  (let [coordinates (converts-step-into-coordinates step)
         x (first coordinates)
         y (last coordinates)]
     (-> board (assoc-in [x y] mark))))
