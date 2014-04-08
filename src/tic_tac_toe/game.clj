@@ -25,7 +25,7 @@
                         (= row \A) 0
                         (= row \B) 1
                         (= row \C) 2
-                          :else 4)
+                          :else 3)
         y-coordinate (-> col str Integer/parseInt dec)]
     (validate-coordinates [x-coordinate y-coordinate])))
 
