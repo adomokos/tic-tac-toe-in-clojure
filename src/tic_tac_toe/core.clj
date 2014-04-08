@@ -23,7 +23,8 @@
         (if (pos? (count move))
           (try
             (do
-              (swap! game-board record-move move :X)
+              (swap! game-board record-user-move move :X)
+              (swap! game-board record-computer-move)
               (print-next-step @game-board move))
             (catch IllegalArgumentException e
               (do

@@ -21,11 +21,18 @@
   (testing "D3 is throwing an IllegalArgumentException"
     (is (thrown? IllegalArgumentException (converts-step-into-coordinates "D3")))))
 
-(deftest records-moves-on-a-board
+(deftest user-moves-tests
   (let [game-board (atom board)]
     (testing "for user - A1 marks the top left with `X`"
-      (is (= [[:X :_ :_][:_ :_ :_][:_ :_ :_]] (swap! game-board record-move "A1" :X))))
-    (testing "for computer - B2 marks the middle with `O`"
-      (is (= [[:X :_ :_][:_ :O :_][:_ :_ :_]] (swap! game-board record-move "B2" :O))))
+      (is (= [[:X :_ :_][:_ :_ :_][:_ :_ :_]] (swap! game-board record-user-move "A1"))))
+    (testing "for computer - B2 marks the middle with `X`"
+      (is (= [[:X :_ :_][:_ :X :_][:_ :_ :_]] (swap! game-board record-user-move "B2"))))
     (testing "for user - C3 marks the bottom right with `X`"
-      (is (= [[:X :_ :_][:_ :O :_][:_ :_ :X]] (swap! game-board record-move "C3" :X))))))
+      (is (= [[:X :_ :_][:_ :X :_][:_ :_ :X]] (swap! game-board record-user-move "C3"))))))
+
+(deftest computer-moves-test
+  (let [game-board (atom board)]
+    (testing "computer's first move"
+      (do
+        (swap! game-board record-user-move "A1")
+        (is (= [[:X :O :_][:_ :_ :_][:_ :_ :_]] (swap! game-board record-computer-move)))))))

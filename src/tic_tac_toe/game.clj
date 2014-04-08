@@ -29,8 +29,13 @@
         y-coordinate (-> col str Integer/parseInt dec)]
     (validate-coordinates [x-coordinate y-coordinate])))
 
-(defn record-move [board step mark]
+(defn record-user-move [board step]
   (let [coordinates (converts-step-into-coordinates step)
         x (first coordinates)
         y (last coordinates)]
-    (-> board (assoc-in [x y] mark))))
+    (-> board (assoc-in [x y] :X))))
+
+(defn record-computer-move [board]
+  (let [x 0
+        y 1]
+  (-> board (assoc-in [x y] :O))))
