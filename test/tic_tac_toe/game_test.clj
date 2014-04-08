@@ -15,7 +15,11 @@
   (testing "A2 is [0 1]"
     (is (= [0 1] (converts-step-into-coordinates "A2"))))
   (testing "C3 is [2 2]"
-    (is (= [2 2] (converts-step-into-coordinates "C3")))))
+    (is (= [2 2] (converts-step-into-coordinates "C3"))))
+  (testing "C4 is throwing an IllegalArgumentException"
+    (is (thrown? IllegalArgumentException (converts-step-into-coordinates "C4"))))
+  (testing "D3 is throwing an IllegalArgumentException"
+    (is (thrown? IllegalArgumentException (converts-step-into-coordinates "D3")))))
 
 (deftest records-moves-on-a-board
   (let [game-board (atom board)]
