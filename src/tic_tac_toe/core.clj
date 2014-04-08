@@ -4,6 +4,11 @@
 
 (def state (atom :running))
 
+(defn print-next-step [board move]
+  (println (print-board board))
+  (println (str "You moved to: " move)))
+
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
@@ -16,8 +21,12 @@
       (let [move (read-line)
             ]
         (if (pos? (count move))
-          (do
-            (swap! game-board record-move move :X)
-            (println (print-board @game-board))
-            (println (str "You moved to: " move)))
+          (try
+            (do
+              (swap! game-board record-move move :X)
+              (print-next-step @game-board move))
+            (catch IllegalArgumentException e
+              (do
+                (print-next-step @game-board move)
+                (println "Incorrect move"))))
           (reset! state :stop))))))
