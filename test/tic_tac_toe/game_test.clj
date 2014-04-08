@@ -36,3 +36,7 @@
       (do
         (swap! game-board record-user-move "A1")
         (is (= [[:X :O :_][:_ :_ :_][:_ :_ :_]] (swap! game-board record-computer-move)))))))
+    ;(testing "computer's second move"
+      ;(do
+        ;(swap! game-board record-user-move "A3")
+        ;(is (= [[:X :O :X][:O :_ :_][:_ :_ :_]] (swap! game-board record-computer-move)))))))

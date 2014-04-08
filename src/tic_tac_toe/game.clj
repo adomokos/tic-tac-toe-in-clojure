@@ -1,4 +1,5 @@
-(ns tic-tac-toe.game)
+(ns tic-tac-toe.game
+  (:require [tic-tac-toe.win :refer :all]))
 
 (def board
   [[:_ :_ :_][:_ :_ :_][:_ :_ :_]])
@@ -36,6 +37,6 @@
     (-> board (assoc-in [x y] :X))))
 
 (defn record-computer-move [board]
-  (let [x 0
-        y 1]
+  (let [x (first (best-move board))
+        y (last (best-move board))]
   (-> board (assoc-in [x y] :O))))
