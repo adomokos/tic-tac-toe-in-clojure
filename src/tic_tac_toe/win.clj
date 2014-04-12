@@ -12,18 +12,13 @@
    ])
 
 (defn converts-board-to-moves [board]
-  (let [first-row (first winning-sets)
-        second-row (second winning-sets)
-        third-row (nth winning-sets 2)
-        finds-user-value (fn [coordinate]
+  (let [finds-user-value (fn [coordinate]
                               (-> board
                                  (nth (first coordinate))
                                  (nth (last coordinate))))]
-    [
-     (into {} (map #(conj [%] (finds-user-value %)) first-row))
-     (into {} (map #(conj [%] (finds-user-value %)) second-row))
-     (into {} (map #(conj [%] (finds-user-value %)) third-row))
-    ]
+    (map (fn [row]
+           (into {} (map #(conj [%] (finds-user-value %)) row)))
+         winning-sets)
     ))
 
 (def moves
