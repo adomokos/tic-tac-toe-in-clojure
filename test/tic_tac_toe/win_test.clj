@@ -38,3 +38,11 @@
   (testing "no winner just yet"
     (let [board [[:X :X :O] [:X :O :O] [:_ :_ :_]]]
       (is (= nil (winning-set board))))))
+
+(deftest suggest-a-best-move
+  (testing "it's easy when there is only one move"
+    (let [board [[:X :_ :_] [:_ :_ :_] [:_ :_ :_]]]
+      (is (= [0 1] (best-move board))))))
+  ;(testing "tries to stop the diagonal"
+    ;(let [board [[:X :O :_] [:_ :X :_] [:_ :_ :_]]]
+      ;(is (= [2 2] (best-move board))))))
