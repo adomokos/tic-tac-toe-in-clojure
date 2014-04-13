@@ -21,9 +21,12 @@
            (into {} (map #(conj [%] (finds-user-value %)) row)))
          winning-sets)))
 
+(defn- mark-filter [moves mark]
+  (filter #(-> % val (= mark)) moves))
+
+
 (defn winning-set [board]
   (let [moves (maps-winning-sets-to-moves board)
-        mark-filter (fn [moves mark] (filter #(-> % val (= mark)) moves))
         first-win (fn [mark]
                     (first (filter #(= 3 (count %))
                                    (map #(-> % (into {}) keys vec)
@@ -39,4 +42,15 @@
   (not (= nil (winning-set board))))
 
 (defn best-move [board]
-  [0 1])
+  (let [moves (maps-winning-sets-to-moves board)
+        number-of-moves-in-winning-set (fn [mark]
+                                         (map #(count (mark-filter % mark)) moves))
+        number-of-moves-for-winning-sets (map list winning-sets (number-of-moves-in-winning-set :X))
+        most-likely-winning-set (-> (sort-by last number-of-moves-for-winning-sets) reverse first)
+        index-of-winning-set (.indexOf winning-sets (first most-likely-winning-set))
+        winning-set-in-moves (nth moves index-of-winning-set)]
+    (cond
+      (= :_ (last (first winning-set-in-moves))) (first (first winning-set-in-moves))
+      (= :_ (last (second winning-set-in-moves))) (first (second winning-set-in-moves))
+      :else
+        (first (last winning-set-in-moves)))))
