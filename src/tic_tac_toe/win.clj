@@ -1,4 +1,5 @@
-(ns tic-tac-toe.win)
+(ns tic-tac-toe.win
+  (:require [clojure.set :only :map-invert]))
 
 (defonce winning-sets
   [[[0 0] [0 1] [0 2]]
@@ -20,11 +21,22 @@
            (into {} (map #(conj [%] (finds-user-value %)) row)))
          winning-sets)))
 
+(defn winning-set [board]
+  (let [moves (maps-winning-sets-to-moves board)
+        mark-filter (fn [moves mark] (filter #(-> % val (= mark)) moves))
+        x-filtered (map #(mark-filter % :X) moves)
+        o-filtered (map #(mark-filter % :O) moves)
+        x-results (map #(-> % (into {}) keys vec) x-filtered)
+        o-results (map #(-> % (into {}) keys vec) o-filtered)
+        first-x-win (first (filter #(= 3 (count %)) x-results))
+        first-o-win (first (filter #(= 3 (count %)) o-results))]
+    (cond
+      (not (= nil first-x-win)) {:X first-x-win}
+      (not (= nil first-o-win)) {:O first-o-win}
+      :else nil)))
+
 (defn has-winner? [board]
-  (let [moves (maps-winning-sets-to-moves board)]
-    (or
-      (some #(= '(:X :X :X) %) (map vals moves))
-      (some #(= '(:O :O :O) %) (map vals moves)))))
+  (not (= nil (winning-set board))))
 
 (defn best-move [board]
   [0 1])
