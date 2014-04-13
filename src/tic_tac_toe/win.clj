@@ -24,12 +24,12 @@
 (defn winning-set [board]
   (let [moves (maps-winning-sets-to-moves board)
         mark-filter (fn [moves mark] (filter #(-> % val (= mark)) moves))
-        x-filtered (map #(mark-filter % :X) moves)
-        o-filtered (map #(mark-filter % :O) moves)
-        x-results (map #(-> % (into {}) keys vec) x-filtered)
-        o-results (map #(-> % (into {}) keys vec) o-filtered)
-        first-x-win (first (filter #(= 3 (count %)) x-results))
-        first-o-win (first (filter #(= 3 (count %)) o-results))]
+        first-win (fn [mark]
+                    (first (filter #(= 3 (count %))
+                              (map #(-> % (into {}) keys vec)
+                                   (map #(mark-filter % mark) moves)))))
+        first-x-win (first-win :X)
+        first-o-win (first-win :O)]
     (cond
       (not (= nil first-x-win)) {:X first-x-win}
       (not (= nil first-o-win)) {:O first-o-win}
