@@ -26,8 +26,8 @@
         mark-filter (fn [moves mark] (filter #(-> % val (= mark)) moves))
         first-win (fn [mark]
                     (first (filter #(= 3 (count %))
-                              (map #(-> % (into {}) keys vec)
-                                   (map #(mark-filter % mark) moves)))))
+                                   (map #(-> % (into {}) keys vec)
+                                        (map #(mark-filter % mark) moves)))))
         first-x-win (first-win :X)
         first-o-win (first-win :O)]
     (cond
