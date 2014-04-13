@@ -22,7 +22,11 @@
     ))
 
 (defn has-winner? [board]
-  {:X [[0 0] [0 1] [0 2]]})
+  (let [moves (maps-winning-sets-to-moves board)]
+    (or
+      (some #(= '(:X :X :X) %) (map vals moves))
+      (some #(= '(:O :O :O) %) (map vals moves)))
+  ))
 
 (defn best-move [board]
   [0 1])
