@@ -18,15 +18,13 @@
                                  (nth (last coordinate))))]
     (map (fn [row]
            (into {} (map #(conj [%] (finds-user-value %)) row)))
-         winning-sets)
-    ))
+         winning-sets)))
 
 (defn has-winner? [board]
   (let [moves (maps-winning-sets-to-moves board)]
     (or
       (some #(= '(:X :X :X) %) (map vals moves))
-      (some #(= '(:O :O :O) %) (map vals moves)))
-  ))
+      (some #(= '(:O :O :O) %) (map vals moves)))))
 
 (defn best-move [board]
   [0 1])
