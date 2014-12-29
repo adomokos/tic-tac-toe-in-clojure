@@ -1,5 +1,4 @@
-(ns tic-tac-toe.win
-  (:require [clojure.set :only :map-invert]))
+(ns tic-tac-toe.win)
 
 (defonce winning-sets
   [[[0 0] [0 1] [0 2]]
